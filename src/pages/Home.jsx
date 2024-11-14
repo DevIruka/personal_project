@@ -1,42 +1,22 @@
-// import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import NagivateBtn from "../components/tags/NagivateBtn";
 import ExternalLinkBtn from "../components/tags/ExternalLinkBtn";
+import useWeatherData from "../hooks/getWeatherData";
+import { Header } from "../components/layout/Header";
 
 const Home = () => {
-    // const [data, setData] = useState(null);
-    // const [geoData, setGeoData] = useState(null);
-    // useEffect(() => {
-    //     navigator.geolocation.getCurrentPosition((res) => {
-    //         setGeoData(res);
-    //     });
-    // }, []);
-    // useEffect(() => {
-    //     if (!geoData) return;
-    //     const API_KEY = "092f098a38964e7400dacffa2b6caf6f";
-    //     let { latitude, longitude } = geoData.coords;
-    //     latitude = Math.floor(latitude * 100) / 100;
-    //     longitude = Math.floor(longitude * 100) / 100;
-    //     const fetchUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await fetch(fetchUrl);
-    //             if (!response.ok) {
-    //                 throw new Error("네트워크 반응이 좋지 않음.");
-    //             }
-    //             const data = await response.json();
-    //             setData(data);
-    //         } catch (error) {
-    //             console.log("err", error);
-    //         }
-    //     };
-    //     fetchData();
-    // }, []);
-    // console.log(data);
+    const { data: weatherData, error } = useWeatherData();
+    const weatherNow = [];
+    if (error) {
+        console.log("Error:", error);
+    } else if (weatherData) {
+        weatherNow.push(weatherData.weather[0].main);
+    } else {
+        console.log("Loading...");
+    }
     return (
         <>
             <figure>
-                <h1>1ruk@'s devlog</h1>
+                <Header weatherNow={weatherNow[0]} />
                 <h2>이 사이트에 대해서.</h2>
                 <p>
                     이 사이트는 포트폴리오 용으로 제작되었으며, CSS나
@@ -64,7 +44,6 @@ const Home = () => {
                 <ExternalLinkBtn
                     content={"TIL 보기"}
                     url={"https://irukasdevblog.tistory.com/"}
-                    
                 />
             </figure>
         </>

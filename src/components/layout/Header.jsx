@@ -1,7 +1,17 @@
 import NagivateBtn from "../tags/NagivateBtn";
 import ExternalLinkBtn from "../tags/ExternalLinkBtn";
 
-const Header = () => {
+const Header = ({ weatherNow }) => {
+    return (
+        <figure>
+            <h1>
+                1ruk@'s devlog
+            </h1>
+        </figure>
+    );
+};
+
+const HeaderDetails = () => {
     return (
         <figure>
             <h1>1ruk@'s devlog</h1>
@@ -26,4 +36,4 @@ const Header = () => {
         </figure>
     );
 };
-export default Header;
+export { Header, HeaderDetails };
